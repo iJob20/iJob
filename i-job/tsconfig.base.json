@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@i-job/shared": ["libs/shared/src/index.ts"]
+      "@i-job/shared": ["libs/shared/src/index.ts"],
+      "@ijob/shared/dto": ["libs/shared/src/lib/dto/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
