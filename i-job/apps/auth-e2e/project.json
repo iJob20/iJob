@@ -1,7 +1,7 @@
 {
   "name": "auth-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["auth"],
+  "implicitDependencies": ["auth-service"],
   "targets": {
     "e2e": {
       "executor": "@nrwl/jest:jest",
