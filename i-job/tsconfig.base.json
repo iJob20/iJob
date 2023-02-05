@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@i-job/shared": ["libs/shared/src/index.ts"],
-      "@ijob/shared/dto": ["libs/shared/src/lib/dto/index.ts"]
+      "@ijob/shared/dto": ["libs/shared/src/lib/dto/index.ts"],
+      "@ijob/shared/auth": ["libs/shared/src/lib/auth/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
