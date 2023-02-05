@@ -9,16 +9,10 @@ import { AuthService } from './auth.service';
     ClientsModule.register([
       {
         name: 'AUTH_MICROSERVICE',
-        transport: Transport.KAFKA,
+        transport: Transport.TCP,
         options: {
-          client: {
-            clientId: 'auth',
-            brokers: ['localhost:9092'],
-          },
-          producerOnlyMode: true,
-          consumer: {
-            groupId: 'auth-consumer',
-          },
+          host: '0.0.0.0',
+          port: process.env.AUTH_SERVICE_PORT || 3334,
         },
       },
     ]),

@@ -5,7 +5,11 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import {
+  MicroserviceOptions,
+  TcpOptions,
+  Transport,
+} from '@nestjs/microservices';
 
 import { AppModule } from './app/app.module';
 
@@ -13,16 +17,12 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
-      transport: Transport.KAFKA,
+      transport: Transport.TCP,
       options: {
-        client: {
-          brokers: ['localhost:9092'],
-        },
-        consumer: {
-          groupId: 'auth-consumer',
-        },
+        host: '0.0.0.0',
+        port: process.env.AUTH_SERVICE_PORT || 3334,
       },
-    }
+    } as TcpOptions
   );
   app.listen();
 }
