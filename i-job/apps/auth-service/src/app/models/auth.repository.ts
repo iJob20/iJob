@@ -1,19 +1,28 @@
+import { CreateAuthDto } from '@i-job/shared/dto';
 import { Injectable } from '@nestjs/common';
-import { DataSource, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Auth } from './auth.entity';
-import { CreateAuthDto } from '@ijob/shared/dto';
 
 @Injectable()
 export class AuthRepository extends Repository<Auth> {
-  constructor(private dataSource: DataSource) {
-    super(Auth, dataSource.createEntityManager());
+  constructor(
+    @InjectRepository(Auth)
+    repository: Repository<Auth>
+  ) {
+    super(repository.target, repository.manager, repository.queryRunner);
   }
 
-  async findById(id: string): Promise<Auth> {
-    return await this.findOne({ where: { id } });
+  async createAuthEntity(createAuthDto: CreateAuthDto): Promise<Auth> {
+    const auth = new Auth();
+    auth.email = createAuthDto.email;
+    auth.password = createAuthDto.password;
+    auth.type = createAuthDto.type;
+    return await this.save(auth);
   }
 
-  async saveSingle(creataAuthDto: CreateAuthDto): Promise<Auth> {
-    return await this.save(creataAuthDto);
+  async findByEmail(email: string): Promise<boolean> {
+    const user = await this.findOne({ where: { email } });
+    return !!user;
   }
 }

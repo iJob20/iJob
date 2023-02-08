@@ -16,8 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@i-job/shared": ["libs/shared/src/index.ts"],
-      "@ijob/shared/dto": ["libs/shared/src/lib/dto/index.ts"],
-      "@ijob/shared/auth": ["libs/shared/src/lib/auth/index.ts"]
+      "@i-job/shared/dto": ["libs/shared/src/lib/dto/index.ts"],
+      "@i-job/shared/auth": ["libs/shared/src/lib/auth/index.ts"],
+      "@i-job/shared/types": ["libs/shared/src/lib/types/index.ts"],
+      "@i-job/shared/exceptions": ["libs/shared/src/lib/exceptions/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

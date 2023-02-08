@@ -17,7 +17,7 @@ import { AuthRepository } from './models/auth.repository';
       synchronize: true,
       autoLoadEntities: true,
       retryAttempts: 10,
-      entities: [Auth],
+      entities: ['./models/auth.entity.ts'],
     }),
     TypeOrmModule.forFeature([Auth]),
   ],

@@ -1,14 +1,15 @@
-import { CreateUserDto } from '@ijob/shared/dto';
 import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import { CreateAuthDto } from '@i-job/shared/dto';
 
 import { AuthService } from './auth.service';
 
 @Controller('v1/auth')
 export class AuthController {
-  constructor(private readonly appService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  createUser(@Body(ValidationPipe) createUserDto: CreateUserDto) {
-    return this.appService.createUser(createUserDto);
+  async createUser(@Body(ValidationPipe) createAuthDto: CreateAuthDto) {
+    const authResponse = await this.authService.createUser(createAuthDto);
+    console.log(authResponse);
   }
 }

@@ -1,15 +1,19 @@
 import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { MessagePattern } from '@nestjs/microservices';
 
 import { AppService } from '../services/app.service';
-import { CreateUserDto } from '@ijob/shared/dto';
+import { CreateAuthDto } from '@i-job/shared/dto';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern('create-user')
-  createUser(@Payload() userDto: CreateUserDto) {
-    return 'response from auth ms: ' + userDto;
+  @MessagePattern('create-auth')
+  async createUser(createAuthDto: CreateAuthDto) {
+    try {
+      return await this.appService.save(createAuthDto);
+    } catch (err) {
+      return err;
+    }
   }
 }

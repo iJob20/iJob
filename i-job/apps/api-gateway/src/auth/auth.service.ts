@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreateUserDto } from '@ijob/shared/dto';
+import { CreateAuthDto } from '@i-job/shared/dto';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -8,7 +9,7 @@ export class AuthService {
     @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientProxy
   ) {}
 
-  createUser(createUserDto: CreateUserDto) {
-    return this.authClient.send('create-user', JSON.stringify(createUserDto));
+  createUser(createUserDto: CreateAuthDto) {
+    return firstValueFrom(this.authClient.send('create-auth', createUserDto));
   }
 }
