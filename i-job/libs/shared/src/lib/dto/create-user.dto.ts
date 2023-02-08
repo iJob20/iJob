@@ -21,4 +21,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   role: string;
+
+  @IsNotEmpty()
+  authId: string;
 }
