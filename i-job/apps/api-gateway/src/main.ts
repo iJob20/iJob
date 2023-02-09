@@ -3,8 +3,9 @@
  * This is only a minimal backend to get started.
  */
 
+import { HttpAllExceptionsFilter } from '@i-job/shared/filters';
 import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 import { AppModule } from './app/app.module';

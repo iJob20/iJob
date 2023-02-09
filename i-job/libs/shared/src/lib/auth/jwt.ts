@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 
 export class Jwt {
-  async signToken(email: string) {
+  static async signToken(email: string) {
     const token = jwt.sign(
       {
         data: email,
@@ -11,7 +11,7 @@ export class Jwt {
     );
     return token;
   }
-  async verifyToken(token: string) {
+  static async verifyToken(token: string) {
     try {
       const isValidToken = jwt.verify(token, process.env.JWT_SECRET);
       return isValidToken;
