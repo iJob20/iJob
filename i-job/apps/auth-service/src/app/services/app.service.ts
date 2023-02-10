@@ -1,8 +1,14 @@
 import { CreateAuthDto } from '@i-job/shared/dto';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Auth } from '../models/auth.entity';
+import { Jwt } from '@i-job/shared/auth';
 import { AuthRepository } from '../models/auth.repository';
+import { Password } from './password';
+import { CreateAuthResponse } from '../interfaces/dto/create-auth.response';
 
 @Injectable()
 export class AppService {
@@ -10,13 +16,20 @@ export class AppService {
     @InjectRepository(AuthRepository) private authRepository: AuthRepository
   ) {}
 
-  async save(createAuthDto: CreateAuthDto): Promise<Auth> {
+  async save(createAuthDto: CreateAuthDto): Promise<CreateAuthResponse> {
     const isUserExist = await this.authRepository.findByEmail(
       createAuthDto.email
     );
     if (isUserExist) {
       throw new BadRequestException('User already exist');
     }
-    return this.authRepository.createAuthEntity(createAuthDto);
+    const hashedPassword = await Password.toHash(createAuthDto.password);
+    createAuthDto.setPassword = hashedPassword;
+    const authed = await this.authRepository.createAuthEntity(createAuthDto);
+    if (!authed) {
+      throw new InternalServerErrorException('Unable to register user');
+    }
+    const token = await Jwt.signToken(createAuthDto.email);
+    return new CreateAuthResponse(authed, token);
   }
 }

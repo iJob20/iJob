@@ -5,6 +5,8 @@ import { AppController } from './controllers/app.controller';
 import { AppService } from './services/app.service';
 import { Auth } from './models/auth.entity';
 import { AuthRepository } from './models/auth.repository';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from '@i-job/shared/filters';
 @Module({
   imports: [
     TypeOrmModule.forRoot({

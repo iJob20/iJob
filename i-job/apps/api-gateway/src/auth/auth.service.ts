@@ -9,7 +9,9 @@ export class AuthService {
     @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientProxy
   ) {}
 
-  createUser(createUserDto: CreateAuthDto) {
-    return firstValueFrom(this.authClient.send('create-auth', createUserDto));
+  async createUser(createUserDto: CreateAuthDto) {
+    return await firstValueFrom(
+      this.authClient.send('create-auth', createUserDto)
+    );
   }
 }

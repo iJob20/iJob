@@ -12,4 +12,8 @@ export class CreateAuthDto {
   @IsString()
   @IsNotEmpty()
   type: UserType;
+
+  set setPassword(hashedPassword: string) {
+    this.password = hashedPassword;
+  }
 }

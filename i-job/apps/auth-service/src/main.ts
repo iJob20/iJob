@@ -4,13 +4,17 @@
  */
 
 import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import {
   MicroserviceOptions,
   TcpOptions,
   Transport,
 } from '@nestjs/microservices';
 
+import {
+  AllExceptionsFilter,
+  TcpAllExceptionsFilter,
+} from '@i-job/shared/filters';
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
