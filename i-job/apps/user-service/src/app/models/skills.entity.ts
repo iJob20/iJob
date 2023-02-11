@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Auth extends BaseEntity {
+export class Skill extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -26,11 +26,5 @@ export class Auth extends BaseEntity {
   updatedAt: Date;
 
   @Column({ unique: true })
-  email: string;
-
-  @Column()
-  password: string;
-
-  @Column()
-  type: string;
+  title: string;
 }

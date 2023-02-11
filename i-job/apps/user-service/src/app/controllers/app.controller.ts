@@ -1,16 +1,16 @@
 import { Controller, UseFilters, ValidationPipe } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { CreateAuthUserDto } from '@i-job/shared/dto';
-import { AppService } from '../services/app.service';
 import { AllExceptionsFilter } from '@i-job/shared/filters';
+import { SignupUserDto } from '@i-job/shared/dto';
+import { AppService } from '../services/app.service';
 
 @Controller()
 @UseFilters(AllExceptionsFilter)
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern('create-auth')
-  async createUser(@Payload(ValidationPipe) createAuthDto: CreateAuthUserDto) {
-    return await this.appService.save(createAuthDto);
+  @MessagePattern('create-user')
+  async createUser(@Payload(ValidationPipe) createUserDto: SignupUserDto) {
+    return await this.appService.createUser(createUserDto);
   }
 }

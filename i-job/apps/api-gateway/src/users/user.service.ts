@@ -4,15 +4,14 @@ import { CreateAuthUserDto } from '@i-job/shared/dto';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
-export class AuthService {
+export class UserService {
   constructor(
-    @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientProxy,
     @Inject('USER_MICROSERVICE') private readonly userClient: ClientProxy
   ) {}
 
-  async createAuth(createUserAuthDto: CreateAuthUserDto) {
+  async createUser(createUserDto) {
     return await firstValueFrom(
-      this.authClient.send('create-auth', createUserAuthDto)
+      this.userClient.send('create-user', createUserDto)
     );
   }
 }

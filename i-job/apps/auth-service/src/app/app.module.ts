@@ -7,6 +7,7 @@ import { Auth } from './models/auth.entity';
 import { AuthRepository } from './models/auth.repository';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from '@i-job/shared/filters';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -20,6 +21,7 @@ import { AllExceptionsFilter } from '@i-job/shared/filters';
       autoLoadEntities: true,
       retryAttempts: 10,
       entities: ['./models/auth.entity.ts'],
+      namingStrategy: new SnakeNamingStrategy(),
     }),
     TypeOrmModule.forFeature([Auth]),
   ],

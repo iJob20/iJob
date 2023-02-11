@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 import { AppController } from './controllers/app.controller';
 import { AppService } from './services/app.service';
@@ -17,6 +18,7 @@ import { AppService } from './services/app.service';
       autoLoadEntities: true,
       retryAttempts: 10,
       entities: ['./models/company.entity.ts'],
+      namingStrategy: new SnakeNamingStrategy(),
     }),
     TypeOrmModule.forFeature([]),
   ],

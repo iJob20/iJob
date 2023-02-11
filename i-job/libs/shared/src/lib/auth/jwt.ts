@@ -6,8 +6,7 @@ export class Jwt {
       {
         data: email,
       },
-      process.env.JWT_SECRET,
-      { algorithm: 'RS256' }
+      process.env.JWT_SECRET
     );
     return token;
   }

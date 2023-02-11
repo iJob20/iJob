@@ -8,9 +8,12 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Auth extends BaseEntity {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column()
+  authId: string;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -29,8 +32,21 @@ export class Auth extends BaseEntity {
   email: string;
 
   @Column()
-  password: string;
+  firstName: string;
 
   @Column()
-  type: string;
+  lastName: string;
+
+  @Column()
+  phoneNumber: number;
+
+  @Column({ nullable: true })
+  profileImageUrl: string;
+
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+    onUpdate: 'CURRENT_TIMESTAMP(6)',
+  })
+  lastLogin: Date;
 }

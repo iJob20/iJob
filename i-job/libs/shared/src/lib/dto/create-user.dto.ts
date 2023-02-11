@@ -14,13 +14,10 @@ export class CreateUserDto {
   email: string;
 
   @IsNotEmpty()
-  password: string;
-
-  @IsNotEmpty()
   phoneNumber: number;
 
   @IsNotEmpty()
-  role: string;
+  type: string;
 
   @IsNotEmpty()
   authId: string;

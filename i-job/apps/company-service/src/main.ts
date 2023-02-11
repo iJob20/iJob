@@ -20,7 +20,7 @@ async function bootstrap() {
       transport: Transport.TCP,
       options: {
         host: '0.0.0.0',
-        port: process.env.AUTH_SERVICE_PORT || 3334,
+        port: process.env.COMPANY_SERVICE_PORT || 3335,
       },
     } as TcpOptions
   );

@@ -1,4 +1,4 @@
-import { CreateAuthDto } from '@i-job/shared/dto';
+import { CreateAuthUserDto } from '@i-job/shared/dto';
 import {
   BadRequestException,
   Injectable,
@@ -16,7 +16,7 @@ export class AppService {
     @InjectRepository(AuthRepository) private authRepository: AuthRepository
   ) {}
 
-  async save(createAuthDto: CreateAuthDto): Promise<CreateAuthResponse> {
+  async save(createAuthDto: CreateAuthUserDto): Promise<CreateAuthResponse> {
     const isUserExist = await this.authRepository.findByEmail(
       createAuthDto.email
     );
