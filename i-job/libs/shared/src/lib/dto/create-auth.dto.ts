@@ -21,9 +21,9 @@ export class CreateAuthUserDto {
   @IsNotEmpty()
   lastName: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  phoneNumber: number;
+  phoneNumber: string;
 
   set setPassword(hashedPassword: string) {
     this.password = hashedPassword;

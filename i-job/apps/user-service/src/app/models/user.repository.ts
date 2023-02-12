@@ -1,4 +1,4 @@
-import { CreateAuthUserDto, CreateUserDto } from '@i-job/shared/dto';
+import { SignupUserDto } from '@i-job/shared/dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -13,7 +13,7 @@ export class UserRepository extends Repository<User> {
     super(repository.target, repository.manager, repository.queryRunner);
   }
 
-  async createUser(createAuthDto: CreateUserDto): Promise<User> {
+  async createUser(createAuthDto: SignupUserDto): Promise<User> {
     const auth = new User();
     auth.email = createAuthDto.email;
     auth.firstName = createAuthDto.firstName;

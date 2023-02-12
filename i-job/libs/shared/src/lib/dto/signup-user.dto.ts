@@ -5,8 +5,8 @@ export class SignupUserDto {
     public email: string,
     public firstName: string,
     public lastName: string,
-    public phoneNumber: number,
-    public type: UserType,
+    public phoneNumber: string,
+    public type: string,
     public token: string,
     public authId: string
   ) {}
