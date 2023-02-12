@@ -10,7 +10,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @MessagePattern('create-user')
-  async createUser(@Payload(ValidationPipe) createUserDto: SignupUserDto) {
+  async createUser(@Payload() createUserDto: SignupUserDto) {
+    console.log(createUserDto);
     return await this.appService.createUser(createUserDto);
   }
 }
