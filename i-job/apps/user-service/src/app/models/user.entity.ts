@@ -3,9 +3,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { UserCV } from './cv.entity';
+import { UserStatus } from './user-status.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -38,7 +43,7 @@ export class User extends BaseEntity {
   lastName: string;
 
   @Column()
-  phoneNumber: number;
+  phoneNumber: string;
 
   @Column({ nullable: true })
   profileImageUrl: string;
@@ -49,4 +54,11 @@ export class User extends BaseEntity {
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   lastLogin: Date;
+
+  @ManyToOne(() => UserStatus, (userStatus) => userStatus.id)
+  userStatus: UserStatus;
+
+  @OneToOne(() => UserCV)
+  @JoinColumn()
+  cv: UserCV;
 }
