@@ -16,7 +16,7 @@ export class Company extends BaseEntity {
   employees: number;
 
   @Column()
-  type: string;
+  industry: string;
 
   @Column()
   name: string;

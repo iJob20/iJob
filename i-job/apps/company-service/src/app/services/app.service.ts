@@ -1,8 +1,15 @@
 import { Injectable } from '@nestjs/common';
-
+import { CreateCompanyDto } from '@i-job/shared/company/dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { companyRepository } from '../models/repo/company.repository';
 @Injectable()
 export class AppService {
-  getData(): { message: string } {
-    return { message: 'Welcome to company-service!' };
+  constructor(
+    @InjectRepository(companyRepository)
+    private companyRepository: companyRepository
+  ) {}
+
+  async createCompany(createCompanyDto: CreateCompanyDto) {
+    return await this.companyRepository.createCompanyEntity(createCompanyDto);
   }
 }
