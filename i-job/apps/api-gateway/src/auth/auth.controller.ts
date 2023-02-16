@@ -1,15 +1,16 @@
 import {
   Body,
   Controller,
-  Get,
   HttpStatus,
-  InternalServerErrorException,
   Post,
   UseFilters,
-  UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
-import { CreateAuthUserDto, CreateUserDto } from '@i-job/shared/dto';
+import {
+  CreateAuthUserDto,
+  LoginAuthUserDto,
+  SigninUserDto,
+} from '@i-job/shared/dto';
 import { AllExceptionsFilter } from '@i-job/shared/filters';
 import { AuthService } from './auth.service';
 import { UserService } from '../users/user.service';
@@ -22,6 +23,28 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly userService: UserService
   ) {}
+
+  @Post('users/signin')
+  async signinUser(@Body(ValidationPipe) signinUserDto: LoginAuthUserDto) {
+    const authResponse = await this.authService.signinUser(signinUserDto);
+    if (authResponse.status !== HttpStatus.OK) {
+      // throw error based on response from microservice
+    }
+    const userResponse = await this.userService.getUserByEmail(
+      signinUserDto.email
+    );
+    if (userResponse.status !== HttpStatus.OK) {
+      // throw error based on response from microservice
+    }
+    return new SigninUserDto(
+      userResponse.email,
+      userResponse.firstName,
+      userResponse.lastName,
+      userResponse.phoneNumber,
+      userResponse.type,
+      authResponse.token
+    );
+  }
 
   @Post('users/signup')
   async createUser(@Body(ValidationPipe) createAuthUserDto: CreateAuthUserDto) {

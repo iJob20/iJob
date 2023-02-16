@@ -14,4 +14,8 @@ export class UserService {
       this.userClient.send('create-user', createUserDto)
     );
   }
+
+  async getUserByEmail(email: string) {
+    return await firstValueFrom(this.userClient.send('get-user', email));
+  }
 }

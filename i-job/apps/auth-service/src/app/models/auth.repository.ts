@@ -21,8 +21,8 @@ export class AuthRepository extends Repository<Auth> {
     return await this.save(auth);
   }
 
-  async findByEmail(email: string): Promise<boolean> {
+  async findByEmail(email: string): Promise<Auth> {
     const user = await this.findOne({ where: { email } });
-    return !!user;
+    return user;
   }
 }

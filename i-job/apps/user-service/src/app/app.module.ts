@@ -25,7 +25,15 @@ import { AppService } from './services/app.service';
       synchronize: true,
       autoLoadEntities: true,
       retryAttempts: 10,
-      entities: ['./models/user.entity.ts', './models/skills.entity.ts'],
+      entities: [
+        './models/user.entity.ts',
+        './models/skills.entity.ts',
+        './models/cv.entity.ts',
+        './models/education.entity.ts',
+        './models/experience.entity.ts',
+        './models/projects.entity.ts',
+        './models/user-status.entity.ts',
+      ],
       namingStrategy: new SnakeNamingStrategy(),
     }),
     TypeOrmModule.forFeature([

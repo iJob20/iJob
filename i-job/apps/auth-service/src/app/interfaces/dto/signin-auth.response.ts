@@ -1,5 +1,5 @@
 import { Auth } from '../../models/auth.entity';
 
-export class CreateAuthResponse {
+export class SigninAuthResponse {
   constructor(public auth: Auth, public token: string, public status: number) {}
 }
