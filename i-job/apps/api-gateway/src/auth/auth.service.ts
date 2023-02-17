@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { CreateAuthUserDto, LoginAuthUserDto } from '@i-job/shared/dto';
@@ -10,14 +11,22 @@ export class AuthService {
   ) {}
 
   async signinUser(signinUserDto: LoginAuthUserDto) {
-    return await firstValueFrom(
-      this.authClient.send('login-auth', signinUserDto)
-    );
+    try {
+      return await firstValueFrom(
+        this.authClient.send('login-auth', signinUserDto)
+      );
+    } catch (err) {
+      throw err;
+    }
   }
 
   async createAuth(createUserAuthDto: CreateAuthUserDto) {
-    return await firstValueFrom(
-      this.authClient.send('create-auth', createUserAuthDto)
-    );
+    try {
+      return await firstValueFrom(
+        this.authClient.send('create-auth', createUserAuthDto)
+      );
+    } catch (err) {
+      throw err;
+    }
   }
 }

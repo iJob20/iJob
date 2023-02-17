@@ -5,6 +5,6 @@ export class ErrorResponse<T> implements BaseResponse<T> {
     public status: number,
     public message: string,
     public timestamp: string,
-    public url: string
+    public data?: T
   ) {}
 }

@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   HttpStatus,
@@ -50,32 +51,32 @@ export class AuthController {
   async createUser(@Body(ValidationPipe) createAuthUserDto: CreateAuthUserDto) {
     const authResponse = await this.authService.createAuth(createAuthUserDto);
     if (authResponse.status !== HttpStatus.CREATED) {
-      // throw error based on response from microservice
+      throw new BadRequestException(authResponse.message);
     }
-    const { auth, token } = authResponse;
+    const { data } = authResponse;
     const signupUserDto = new SignupUserDto(
       createAuthUserDto.email,
       createAuthUserDto.firstName,
       createAuthUserDto.lastName,
       createAuthUserDto.phoneNumber,
       createAuthUserDto.type,
-      token,
-      auth.id
+      data.token,
+      data.auth.id
     );
-    const userResponse = await this.userService.createUser(signupUserDto);
 
+    const userResponse = await this.userService.createUser(signupUserDto);
     if (userResponse.status !== HttpStatus.CREATED) {
-      // send event to auth service to delete the auth account and throw error
+      throw new BadRequestException(authResponse.message);
     }
 
     return new SignupUserDto(
-      auth.email,
+      data.auth.email,
       createAuthUserDto.firstName,
       createAuthUserDto.lastName,
       createAuthUserDto.phoneNumber,
-      auth.type,
-      token,
-      auth.id
+      data.auth.type,
+      data.token,
+      data.auth.id
     );
   }
 }

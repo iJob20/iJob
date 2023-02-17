@@ -1,6 +1,5 @@
 import { CreateAuthUserDto, LoginAuthUserDto } from '@i-job/shared/dto';
 import {
-  BadRequestException,
   HttpStatus,
   Injectable,
   InternalServerErrorException,
@@ -11,6 +10,9 @@ import { AuthRepository } from '../models/auth.repository';
 import { Password } from './password';
 import { CreateAuthResponse } from '../interfaces/dto/create-auth.response';
 import { SigninAuthResponse } from '../interfaces/dto/signin-auth.response';
+import { SuccessResponse } from 'libs/shared/src/lib/api/responses/success.response';
+import { BaseResponse } from 'libs/shared/src/lib/api/responses/base.response';
+import { ErrorResponse } from 'libs/shared/src/lib/api/responses/error.response';
 
 @Injectable()
 export class AppService {
@@ -18,36 +20,62 @@ export class AppService {
     @InjectRepository(AuthRepository) private authRepository: AuthRepository
   ) {}
 
-  async signin(signinUserDto: LoginAuthUserDto): Promise<SigninAuthResponse> {
+  async signin(
+    signinUserDto: LoginAuthUserDto
+  ): Promise<BaseResponse<SigninAuthResponse>> {
     const auth = await this.authRepository.findByEmail(signinUserDto.email);
     if (!auth || auth.type !== signinUserDto.type) {
-      throw new BadRequestException('Email or password is incorrect');
+      return new ErrorResponse(
+        HttpStatus.BAD_REQUEST,
+        'Email or password is incorrect',
+        new Date().toISOString()
+      );
     }
     const isPasswordValid = Password.verifyPassword(
       signinUserDto.password,
       auth.password
     );
     if (!isPasswordValid) {
-      throw new BadRequestException('Email or password is incorrect');
+      return new ErrorResponse(
+        HttpStatus.BAD_REQUEST,
+        'Email or password is incorrect',
+        new Date().toISOString()
+      );
     }
     const token = await Jwt.signToken(auth.email);
-    return new SigninAuthResponse(auth, token, HttpStatus.OK);
+    return new SuccessResponse(
+      new SigninAuthResponse(auth, token),
+      HttpStatus.OK
+    );
   }
 
-  async save(createAuthDto: CreateAuthUserDto): Promise<CreateAuthResponse> {
+  async save(
+    createAuthDto: CreateAuthUserDto
+  ): Promise<BaseResponse<CreateAuthResponse>> {
     const isUserExist = await this.authRepository.findByEmail(
       createAuthDto.email
     );
     if (isUserExist) {
-      throw new BadRequestException('User already exist');
+      return new ErrorResponse(
+        HttpStatus.BAD_REQUEST,
+        'User already exist',
+        new Date().toISOString()
+      );
     }
     const hashedPassword = await Password.toHash(createAuthDto.password);
     createAuthDto.setPassword = hashedPassword;
     const authed = await this.authRepository.createAuthEntity(createAuthDto);
     if (!authed) {
-      throw new InternalServerErrorException('Unable to register user');
+      return new ErrorResponse(
+        HttpStatus.BAD_REQUEST,
+        'Unable to register user',
+        new Date().toISOString()
+      );
     }
     const token = await Jwt.signToken(createAuthDto.email);
-    return new CreateAuthResponse(authed, token, HttpStatus.CREATED);
+    return new SuccessResponse(
+      new CreateAuthResponse(authed, token),
+      HttpStatus.CREATED
+    );
   }
 }

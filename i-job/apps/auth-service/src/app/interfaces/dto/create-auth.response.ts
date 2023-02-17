@@ -1,5 +1,5 @@
 import { Auth } from '../../models/auth.entity';
 
 export class CreateAuthResponse {
-  constructor(public auth: Auth, public token: string, public status: number) {}
+  constructor(public auth: Auth, public token: string) {}
 }

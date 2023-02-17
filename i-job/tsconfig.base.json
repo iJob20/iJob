@@ -17,14 +17,14 @@
     "paths": {
       "@i-job/shared": ["libs/shared/src/index.ts"],
       "@i-job/shared/api": ["libs/shared/src/lib/api"],
-      "@i-job/shared/auth": ["libs/shared/src/lib/auth/index.ts"],
       "@i-job/shared/dto": ["libs/shared/src/lib/dto/index.ts"],
+      "@i-job/shared/auth": ["libs/shared/src/lib/auth/index.ts"],
+      "@i-job/shared/types": ["libs/shared/src/lib/types/index.ts"],
       "@i-job/shared/exceptions": ["libs/shared/src/lib/exceptions/index.ts"],
       "@i-job/shared/filters": ["libs/shared/src/lib/filters/index.ts"],
       "@i-job/shared/interceptors": [
         "libs/shared/src/lib/interceptors/index.ts"
       ],
-      "@i-job/shared/types": ["libs/shared/src/lib/types/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
