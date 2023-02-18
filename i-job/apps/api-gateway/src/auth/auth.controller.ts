@@ -60,8 +60,7 @@ export class AuthController {
       createAuthUserDto.lastName,
       createAuthUserDto.phoneNumber,
       createAuthUserDto.type,
-      data.token,
-      data.auth.id
+      data.token
     );
 
     const userResponse = await this.userService.createUser(signupUserDto);
@@ -75,8 +74,7 @@ export class AuthController {
       createAuthUserDto.lastName,
       createAuthUserDto.phoneNumber,
       data.auth.type,
-      data.token,
-      data.auth.id
+      data.token
     );
   }
 }

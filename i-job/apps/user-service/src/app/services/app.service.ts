@@ -27,8 +27,8 @@ export class AppService {
       );
     }
     return new SuccessResponse(
-      new CreateUserResponse(createdUser, HttpStatus.CREATED),
-      HttpStatus.OK
+      new CreateUserResponse(createdUser),
+      HttpStatus.CREATED
     );
   }
 }
