@@ -24,7 +24,8 @@
       "@i-job/shared/interceptors": [
         "libs/shared/src/lib/interceptors/index.ts"
       ],
-      "@i-job/shared/types": ["libs/shared/src/lib/types/index.ts"]
+      "@i-job/shared/types": ["libs/shared/src/lib/types/index.ts"],
+      "@app": ["apps/ijob-client/src"]
     }
   },
   "exclude": ["node_modules", "tmp"]
