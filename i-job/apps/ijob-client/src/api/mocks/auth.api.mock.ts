@@ -2,7 +2,8 @@ import { httpApiMock } from '@app/api/mocks/http.api.mock';
 import { AuthData } from '@app/api/auth.api';
 import { initValues } from '@app/components/auth/LoginForm/LoginForm';
 
-const avatarImg = process.env.REACT_APP_ASSETS_BUCKET + '/avatars/avatar5.webp';
+const avatarImg =
+  import.meta.env.REACT_APP_ASSETS_BUCKET + '/avatars/avatar5.webp';
 
 httpApiMock.onPost('login').reply((config) => {
   const data: AuthData = JSON.parse(config.data || '');
