@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createComponent } from '@lit-labs/react';
-// @ts-ignore
+//@ts-ignore
 import { RoundSlider } from 'round-slider';
 import { hToMS, msToH } from '@app/utils/utils';
 import * as S from './NightTimeSlider.styles';

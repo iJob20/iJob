@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
 import { NotificationType } from '@app/components/common/Notification/Notification';
-import { Priority } from '@app/constants/enums/priorities';
+import { Priority } from '@app//constants/enums/priorities';
 import { ReactComponent as ETHIcon } from '@app/assets/icons/eth.svg';
 import { ReactComponent as BTCIcon } from '@app/assets/icons/btc.svg';
 
@@ -174,7 +174,9 @@ export const hexToHSL = (hex: string): { h: number; s: number; l: number } => {
     let r = parseInt(result[1], 16);
     let g = parseInt(result[2], 16);
     let b = parseInt(result[3], 16);
-    (r /= 255), (g /= 255), (b /= 255);
+    r /= 255;
+    g /= 255;
+    b /= 255;
     const max = Math.max(r, g, b),
       min = Math.min(r, g, b);
     let h, s;

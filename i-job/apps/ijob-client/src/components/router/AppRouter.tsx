@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // no lazy loading for auth pages to avoid flickering
-// const AuthLayout = React.lazy(() => import('@app/components/layouts/AuthLayout/AuthLayout'));
+const AuthLayout = React.lazy(() => import('@app/components/layouts/AuthLayout/AuthLayout'));
 import LoginPage from '@app/pages/LoginPage';
 import SignUpPage from '@app/pages/SignUpPage';
 import ForgotPasswordPage from '@app/pages/ForgotPasswordPage';
@@ -23,112 +23,42 @@ const DataTablesPage = React.lazy(() => import('@app/pages/DataTablesPage'));
 const ChartsPage = React.lazy(() => import('@app/pages/ChartsPage'));
 const ServerErrorPage = React.lazy(() => import('@app/pages/ServerErrorPage'));
 const Error404Page = React.lazy(() => import('@app/pages/Error404Page'));
-const AdvancedFormsPage = React.lazy(
-  () => import('@app/pages/AdvancedFormsPage')
-);
-const PersonalInfoPage = React.lazy(
-  () => import('@app/pages/PersonalInfoPage')
-);
-const SecuritySettingsPage = React.lazy(
-  () => import('@app/pages/SecuritySettingsPage')
-);
-const NotificationsPage = React.lazy(
-  () => import('@app/pages/NotificationsPage')
-);
+const AdvancedFormsPage = React.lazy(() => import('@app/pages/AdvancedFormsPage'));
+const PersonalInfoPage = React.lazy(() => import('@app/pages/PersonalInfoPage'));
+const SecuritySettingsPage = React.lazy(() => import('@app/pages/SecuritySettingsPage'));
+const NotificationsPage = React.lazy(() => import('@app/pages/NotificationsPage'));
 const PaymentsPage = React.lazy(() => import('@app/pages/PaymentsPage'));
-const ButtonsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/ButtonsPage')
-);
-const SpinnersPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/SpinnersPage')
-);
-const AvatarsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/dataDisplay/AvatarsPage')
-);
-const BadgesPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/dataDisplay/BadgesPage')
-);
-const CollapsePage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/dataDisplay/CollapsePage')
-);
-const PaginationPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/dataDisplay/PaginationPage')
-);
-const ModalsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/modals/ModalsPage')
-);
-const PopoversPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/modals/PopoversPage')
-);
-const PopconfirmsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/modals/PopconfirmsPage')
-);
-const ProgressPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/feedback/ProgressPage')
-);
-const ResultsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/feedback/ResultsPage')
-);
-const AlertsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/feedback/AlertsPage')
-);
-const SkeletonsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/feedback/SkeletonsPage')
-);
-const InputsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/forms/InputsPage')
-);
-const CheckboxesPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/forms/CheckboxesPage')
-);
-const RadiosPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/forms/RadiosPage')
-);
-const SelectsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/forms/SelectsPage')
-);
-const SwitchesPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/forms/SwitchesPage')
-);
-const UploadsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/forms/UploadsPage')
-);
-const RatesPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/forms/RatesPage')
-);
-const AutoCompletesPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/forms/AutoCompletesPage')
-);
-const StepsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/forms/StepsPage')
-);
-const DateTimePickersPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/forms/DateTimePickersPage')
-);
-const DropdownsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/DropdownsPage')
-);
-const BreadcrumbsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/navigation/BreadcrumbsPage')
-);
-const TabsPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/navigation/TabsPage')
-);
-const NotificationsUIPage = React.lazy(
-  () => import('@app/pages/uiComponentsPages/feedback/NotificationsPage')
-);
-const GoogleMaps = React.lazy(
-  () => import('@app/pages/maps/GoogleMapsPage/GoogleMapsPage')
-);
-const LeafletMaps = React.lazy(
-  () => import('@app/pages/maps/LeafletMapsPage/LeafletMapsPage')
-);
-const ReactSimpleMaps = React.lazy(
-  () => import('@app/pages/maps/ReactSimpleMapsPage/ReactSimpleMapsPage')
-);
-const PigeonsMaps = React.lazy(
-  () => import('@app/pages/maps/PigeonsMapsPage/PigeonsMapsPage')
-);
+const ButtonsPage = React.lazy(() => import('@app/pages/uiComponentsPages/ButtonsPage'));
+const SpinnersPage = React.lazy(() => import('@app/pages/uiComponentsPages/SpinnersPage'));
+const AvatarsPage = React.lazy(() => import('@app/pages/uiComponentsPages/dataDisplay/AvatarsPage'));
+const BadgesPage = React.lazy(() => import('@app/pages/uiComponentsPages/dataDisplay/BadgesPage'));
+const CollapsePage = React.lazy(() => import('@app/pages/uiComponentsPages/dataDisplay/CollapsePage'));
+const PaginationPage = React.lazy(() => import('@app/pages/uiComponentsPages/dataDisplay/PaginationPage'));
+const ModalsPage = React.lazy(() => import('@app/pages/uiComponentsPages/modals/ModalsPage'));
+const PopoversPage = React.lazy(() => import('@app/pages/uiComponentsPages/modals/PopoversPage'));
+const PopconfirmsPage = React.lazy(() => import('@app/pages/uiComponentsPages/modals/PopconfirmsPage'));
+const ProgressPage = React.lazy(() => import('@app/pages/uiComponentsPages/feedback/ProgressPage'));
+const ResultsPage = React.lazy(() => import('@app/pages/uiComponentsPages/feedback/ResultsPage'));
+const AlertsPage = React.lazy(() => import('@app/pages/uiComponentsPages/feedback/AlertsPage'));
+const SkeletonsPage = React.lazy(() => import('@app/pages/uiComponentsPages/feedback/SkeletonsPage'));
+const InputsPage = React.lazy(() => import('@app/pages/uiComponentsPages/forms/InputsPage'));
+const CheckboxesPage = React.lazy(() => import('@app/pages/uiComponentsPages/forms/CheckboxesPage'));
+const RadiosPage = React.lazy(() => import('@app/pages/uiComponentsPages/forms/RadiosPage'));
+const SelectsPage = React.lazy(() => import('@app/pages/uiComponentsPages/forms/SelectsPage'));
+const SwitchesPage = React.lazy(() => import('@app/pages/uiComponentsPages/forms/SwitchesPage'));
+const UploadsPage = React.lazy(() => import('@app/pages/uiComponentsPages/forms/UploadsPage'));
+const RatesPage = React.lazy(() => import('@app/pages/uiComponentsPages/forms/RatesPage'));
+const AutoCompletesPage = React.lazy(() => import('@app/pages/uiComponentsPages/forms/AutoCompletesPage'));
+const StepsPage = React.lazy(() => import('@app/pages/uiComponentsPages/forms/StepsPage'));
+const DateTimePickersPage = React.lazy(() => import('@app/pages/uiComponentsPages/forms/DateTimePickersPage'));
+const DropdownsPage = React.lazy(() => import('@app/pages/uiComponentsPages/DropdownsPage'));
+const BreadcrumbsPage = React.lazy(() => import('@app/pages/uiComponentsPages/navigation/BreadcrumbsPage'));
+const TabsPage = React.lazy(() => import('@app/pages/uiComponentsPages/navigation/TabsPage'));
+const NotificationsUIPage = React.lazy(() => import('@app/pages/uiComponentsPages/feedback/NotificationsPage'));
+const GoogleMaps = React.lazy(() => import('@app/pages/maps/GoogleMapsPage/GoogleMapsPage'));
+const LeafletMaps = React.lazy(() => import('@app/pages/maps/LeafletMapsPage/LeafletMapsPage'));
+const ReactSimpleMaps = React.lazy(() => import('@app/pages/maps/ReactSimpleMapsPage/ReactSimpleMapsPage'));
+const PigeonsMaps = React.lazy(() => import('@app/pages/maps/PigeonsMapsPage/PigeonsMapsPage'));
 const Logout = React.lazy(() => import('./Logout'));
 
 export const NFT_DASHBOARD_PATH = '/';
