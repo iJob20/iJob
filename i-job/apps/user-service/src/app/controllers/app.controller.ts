@@ -11,7 +11,11 @@ export class AppController {
 
   @MessagePattern('create-user')
   async createUser(@Payload() createUserDto: SignupUserDto) {
-    console.log(createUserDto);
     return await this.appService.createUser(createUserDto);
+  }
+
+  @MessagePattern('get-user')
+  async getUserByEmail(email: string) {
+    return await this.appService.getUserByEmail(email);
   }
 }

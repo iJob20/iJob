@@ -15,7 +15,7 @@ import {
 import { AllExceptionsFilter } from '@i-job/shared/filters';
 import { AuthService } from './auth.service';
 import { UserService } from '../users/user.service';
-import { SignupUserDto } from '../../../../libs/shared/src/lib/dto/signup-user.dto';
+import { SignupUserDto } from '@i-job/shared/dto';
 
 @Controller('v1/auth')
 @UseFilters(AllExceptionsFilter)
@@ -31,9 +31,11 @@ export class AuthController {
     if (authResponse.status !== HttpStatus.OK) {
       // throw error based on response from microservice
     }
+    console.log(signinUserDto.email);
     const userResponse = await this.userService.getUserByEmail(
       signinUserDto.email
     );
+    console.log(userResponse);
     if (userResponse.status !== HttpStatus.OK) {
       // throw error based on response from microservice
     }

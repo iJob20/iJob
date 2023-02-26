@@ -31,7 +31,7 @@ export class AppService {
         new Date().toISOString()
       );
     }
-    const isPasswordValid = Password.verifyPassword(
+    const isPasswordValid = await Password.verifyPassword(
       signinUserDto.password,
       auth.password
     );
@@ -63,7 +63,7 @@ export class AppService {
       );
     }
     const hashedPassword = await Password.toHash(createAuthDto.password);
-    createAuthDto.setPassword = hashedPassword;
+    createAuthDto.hashedPassword = hashedPassword;
     const authed = await this.authRepository.createAuthEntity(createAuthDto);
     if (!authed) {
       return new ErrorResponse(

@@ -16,7 +16,7 @@ export class AuthRepository extends Repository<Auth> {
   async createAuthEntity(createAuthDto: CreateAuthUserDto): Promise<Auth> {
     const auth = new Auth();
     auth.email = createAuthDto.email;
-    auth.password = createAuthDto.password;
+    auth.password = createAuthDto.hashedPassword;
     auth.type = createAuthDto.type;
     return await this.save(auth);
   }

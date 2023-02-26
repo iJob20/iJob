@@ -1,5 +1,5 @@
 import { SignupUserDto } from '@i-job/shared/dto';
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   BaseResponse,
@@ -14,6 +14,14 @@ export class AppService {
   constructor(
     @InjectRepository(UserRepository) private userRepository: UserRepository
   ) {}
+
+  async getUserByEmail(email: string) {
+    const user = await this.userRepository.findByEmail(email);
+    if (!user) {
+      throw new BadRequestException();
+    }
+    return user;
+  }
 
   async createUser(
     createUserDto: SignupUserDto
