@@ -54,13 +54,15 @@ export class AuthController {
       throw new BadRequestException(authResponse.message);
     }
     const { data } = authResponse;
+    console.log('SIGNED UP AUTH ID: ', authResponse);
     const signupUserDto = new SignupUserDto(
       createAuthUserDto.email,
       createAuthUserDto.firstName,
       createAuthUserDto.lastName,
       createAuthUserDto.phoneNumber,
       createAuthUserDto.type,
-      data.token
+      data.token,
+      data.auth.id
     );
 
     const userResponse = await this.userService.createUser(signupUserDto);
@@ -68,13 +70,6 @@ export class AuthController {
       throw new BadRequestException(authResponse.message);
     }
 
-    return new SignupUserDto(
-      data.auth.email,
-      createAuthUserDto.firstName,
-      createAuthUserDto.lastName,
-      createAuthUserDto.phoneNumber,
-      data.auth.type,
-      data.token
-    );
+    return signupUserDto;
   }
 }

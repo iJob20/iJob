@@ -10,7 +10,6 @@ import { AuthService } from './auth.service';
     ClientsModule.register([
       {
         name: 'AUTH_MICROSERVICE',
-        transport: Transport.TCP,
         options: {
           host: '0.0.0.0',
           port: process.env.AUTH_SERVICE_PORT || 3334,
@@ -18,7 +17,6 @@ import { AuthService } from './auth.service';
       },
       {
         name: 'USER_MICROSERVICE',
-        transport: Transport.TCP,
         options: {
           host: '0.0.0.0',
           port: process.env.USER_SERVICE_PORT || 3336,

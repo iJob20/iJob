@@ -11,10 +11,7 @@ import {
   Transport,
 } from '@nestjs/microservices';
 
-import {
-  AllExceptionsFilter,
-  TcpAllExceptionsFilter,
-} from '@i-job/shared/filters';
+import { AllExceptionsFilter } from '@i-job/shared/filters';
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
