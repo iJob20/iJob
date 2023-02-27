@@ -2,17 +2,17 @@ import * as jwt from 'jsonwebtoken';
 
 export class Jwt {
   static async signToken(email: string) {
-    const token = jwt.sign(
+    const accessToken = jwt.sign(
       {
         data: email,
       },
       process.env.JWT_SECRET
     );
-    return token;
+    return accessToken;
   }
-  static async verifyToken(token: string) {
+  static async verifyToken(accessToken: string) {
     try {
-      const isValidToken = jwt.verify(token, process.env.JWT_SECRET);
+      const isValidToken = jwt.verify(accessToken, process.env.JWT_SECRET);
       return isValidToken;
     } catch (e) {
       return false;

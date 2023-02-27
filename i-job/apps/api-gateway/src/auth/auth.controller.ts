@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  HttpCode,
   HttpStatus,
   Post,
   UseFilters,
@@ -26,16 +27,15 @@ export class AuthController {
   ) {}
 
   @Post('users/signin')
+  @HttpCode(HttpStatus.OK)
   async signinUser(@Body(ValidationPipe) signinUserDto: LoginAuthUserDto) {
     const authResponse = await this.authService.signinUser(signinUserDto);
     if (authResponse.status !== HttpStatus.OK) {
       // throw error based on response from microservice
     }
-    console.log(signinUserDto.email);
     const userResponse = await this.userService.getUserByEmail(
       signinUserDto.email
     );
-    console.log(userResponse);
     if (userResponse.status !== HttpStatus.OK) {
       // throw error based on response from microservice
     }
@@ -44,8 +44,8 @@ export class AuthController {
       userResponse.firstName,
       userResponse.lastName,
       userResponse.phoneNumber,
-      userResponse.type,
-      authResponse.token
+      authResponse.data.auth.type,
+      authResponse.data.accessToken
     );
   }
 
@@ -56,14 +56,13 @@ export class AuthController {
       throw new BadRequestException(authResponse.message);
     }
     const { data } = authResponse;
-    console.log('SIGNED UP AUTH ID: ', authResponse);
     const signupUserDto = new SignupUserDto(
       createAuthUserDto.email,
       createAuthUserDto.firstName,
       createAuthUserDto.lastName,
       createAuthUserDto.phoneNumber,
       createAuthUserDto.type,
-      data.token,
+      data.accessToken,
       data.auth.id
     );
 

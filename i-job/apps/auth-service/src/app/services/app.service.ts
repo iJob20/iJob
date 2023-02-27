@@ -42,9 +42,9 @@ export class AppService {
         new Date().toISOString()
       );
     }
-    const token = await Jwt.signToken(auth.email);
+    const accessToken = await Jwt.signToken(auth.email);
     return new SuccessResponse(
-      new SigninAuthResponse(auth, token),
+      new SigninAuthResponse(auth, accessToken),
       HttpStatus.OK
     );
   }
@@ -72,9 +72,9 @@ export class AppService {
         new Date().toISOString()
       );
     }
-    const token = await Jwt.signToken(createAuthDto.email);
+    const accessToken = await Jwt.signToken(createAuthDto.email);
     return new SuccessResponse(
-      new CreateAuthResponse(authed, token),
+      new CreateAuthResponse(authed, accessToken),
       HttpStatus.CREATED
     );
   }

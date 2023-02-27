@@ -1,5 +1,3 @@
-import { UserType } from '@i-job/shared/types';
-
 export class SigninUserDto {
   constructor(
     public email: string,
@@ -7,6 +5,6 @@ export class SigninUserDto {
     public lastName: string,
     public phoneNumber: string,
     public type: string,
-    public token: string
+    public accessToken: string
   ) {}
 }
