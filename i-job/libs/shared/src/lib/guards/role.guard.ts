@@ -17,7 +17,7 @@ export class RolesGuard implements CanActivate {
       return true;
     }
     const { accessToken } = context.switchToHttp().getRequest();
-    const data = await Jwt.verifyToken(accessToken);
+    const data: any = await Jwt.verifyToken(accessToken);
 
     return data.role === Role.Admin;
   }

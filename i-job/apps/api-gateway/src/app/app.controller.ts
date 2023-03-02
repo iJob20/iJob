@@ -1,4 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { Jwt } from '@i-job/shared/auth';
+import { Controller, Get, Query } from '@nestjs/common';
 
 import { AppService } from './app.service';
 
@@ -6,8 +7,8 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getData() {
-    return this.appService.getData();
+  @Get('test')
+  getData(@Query() token: string) {
+    return Jwt.verifyToken(token);
   }
 }

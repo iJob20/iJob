@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { CreateCompanyDto } from '@i-job/shared/company/dto';
+import { CreateCompanyDto } from '@i-job/shared/dto';
 import { AppService } from '../services/app.service';
 
 @Controller()
