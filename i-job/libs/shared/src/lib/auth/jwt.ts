@@ -1,10 +1,11 @@
 import * as jwt from 'jsonwebtoken';
 
 export class Jwt {
-  static async signToken(email: string) {
+  static async signToken(email: string, role: string) {
     const accessToken = jwt.sign(
       {
-        data: email,
+        email,
+        role,
       },
       process.env.JWT_SECRET
     );

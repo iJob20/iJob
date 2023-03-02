@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Company } from '../company.entity';
-import { CreateCompanyDto } from '@i-job/shared/company/dto';
-import { empty } from 'rxjs';
+import { CreateCompanyDto } from '@i-job/shared/dto';
+
 @Injectable()
 export class companyRepository extends Repository<Company> {
   constructor(repository: Repository<Company>) {

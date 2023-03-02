@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCompanyDto } from '@i-job/shared/company/dto';
+import { CreateCompanyDto } from '@i-job/shared/dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { companyRepository } from '../models/repo/company.repository';
+
 @Injectable()
 export class AppService {
   constructor(

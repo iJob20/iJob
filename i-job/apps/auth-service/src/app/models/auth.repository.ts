@@ -17,7 +17,7 @@ export class AuthRepository extends Repository<Auth> {
     const auth = new Auth();
     auth.email = createAuthDto.email;
     auth.password = createAuthDto.hashedPassword;
-    auth.type = createAuthDto.type;
+    auth.role = createAuthDto.role;
     return await this.save(auth);
   }
 

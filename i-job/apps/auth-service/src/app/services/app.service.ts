@@ -24,7 +24,7 @@ export class AppService {
     signinUserDto: LoginAuthUserDto
   ): Promise<BaseResponse<SigninAuthResponse>> {
     const auth = await this.authRepository.findByEmail(signinUserDto.email);
-    if (!auth || auth.type !== signinUserDto.type) {
+    if (!auth || auth.role !== signinUserDto.role) {
       return new ErrorResponse(
         HttpStatus.BAD_REQUEST,
         'Email or password is incorrect',
@@ -42,7 +42,7 @@ export class AppService {
         new Date().toISOString()
       );
     }
-    const accessToken = await Jwt.signToken(auth.email);
+    const accessToken = await Jwt.signToken(auth.email, auth.role);
     return new SuccessResponse(
       new SigninAuthResponse(auth, accessToken),
       HttpStatus.OK
@@ -72,7 +72,10 @@ export class AppService {
         new Date().toISOString()
       );
     }
-    const accessToken = await Jwt.signToken(createAuthDto.email);
+    const accessToken = await Jwt.signToken(
+      createAuthDto.email,
+      createAuthDto.role
+    );
     return new SuccessResponse(
       new CreateAuthResponse(authed, accessToken),
       HttpStatus.CREATED

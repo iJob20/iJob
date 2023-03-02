@@ -44,7 +44,7 @@ export class AuthController {
       userResponse.firstName,
       userResponse.lastName,
       userResponse.phoneNumber,
-      authResponse.data.auth.type,
+      authResponse.data.auth.role,
       authResponse.data.accessToken
     );
   }
@@ -61,7 +61,7 @@ export class AuthController {
       createAuthUserDto.firstName,
       createAuthUserDto.lastName,
       createAuthUserDto.phoneNumber,
-      createAuthUserDto.type,
+      createAuthUserDto.role,
       data.accessToken,
       data.auth.id
     );

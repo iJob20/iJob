@@ -32,5 +32,5 @@ export class Auth extends BaseEntity {
   password: string;
 
   @Column()
-  type: string;
+  role: string;
 }
