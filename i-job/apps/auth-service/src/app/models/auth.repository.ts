@@ -1,7 +1,7 @@
-import { CreateAuthUserDto } from '@i-job/shared/dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { AuthEntity } from '../services/app.service';
 import { Auth } from './auth.entity';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class AuthRepository extends Repository<Auth> {
     super(repository.target, repository.manager, repository.queryRunner);
   }
 
-  async createAuthEntity(createAuthDto: CreateAuthUserDto): Promise<Auth> {
+  async createAuthEntity(createAuthDto: AuthEntity): Promise<Auth> {
     const auth = new Auth();
     auth.email = createAuthDto.email;
     auth.password = createAuthDto.hashedPassword;

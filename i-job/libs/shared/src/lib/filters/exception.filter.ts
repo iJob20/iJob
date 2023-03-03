@@ -26,8 +26,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
     const path = httpAdapter?.getRequestUrl(ctx.getRequest()) || null;
     const errorMessage =
-      exception.response?.message[0] ||
       exception?.message ||
+      exception.response?.message[0] ||
       'Internal server error';
 
     const response = new ErrorResponse(

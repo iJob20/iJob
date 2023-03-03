@@ -3,6 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 import { AppController } from './controllers/app.controller';
+import { Companies } from './models/company.entity';
+import { Jobs } from './models/jobs.entity';
+import { Recruiters } from './models/recruiter.entity';
+import { CompanyRepository } from './models/repo/company.repository';
 import { AppService } from './services/app.service';
 
 @Module({
@@ -17,12 +21,16 @@ import { AppService } from './services/app.service';
       synchronize: true,
       autoLoadEntities: true,
       retryAttempts: 10,
-      entities: ['./models/company.entity.ts'],
+      entities: [
+        './models/company.entity.ts',
+        './models/jobs.entity.ts',
+        './models/recruiter.entity.ts',
+      ],
       namingStrategy: new SnakeNamingStrategy(),
     }),
-    TypeOrmModule.forFeature([]),
+    TypeOrmModule.forFeature([Companies, Recruiters, Jobs]),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CompanyRepository],
 })
 export class AppModule {}

@@ -7,10 +7,10 @@ import {
   JoinColumn,
   BaseEntity,
 } from 'typeorm';
-import { Company } from './company.entity';
+import { Companies } from './company.entity';
 
 @Entity()
-export class Recruiter extends BaseEntity {
+export class Recruiters extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -29,7 +29,7 @@ export class Recruiter extends BaseEntity {
   @Column()
   company_id: number;
 
-  @ManyToOne((type) => Company, (company) => company.recruiters)
+  @ManyToOne((type) => Companies, (company) => company.recruiters)
   @JoinColumn({ name: 'company_id' })
-  company: Company;
+  company: Companies;
 }

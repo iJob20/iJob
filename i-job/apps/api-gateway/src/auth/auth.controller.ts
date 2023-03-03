@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import {
   CreateAuthUserDto,
+  CreateCompanyDto,
   LoginAuthUserDto,
   SigninUserDto,
 } from '@i-job/shared/dto';
@@ -17,13 +18,15 @@ import { AllExceptionsFilter } from '@i-job/shared/filters';
 import { AuthService } from './auth.service';
 import { UserService } from '../users/user.service';
 import { SignupUserDto } from '@i-job/shared/dto';
+import { CompanyService } from '../company/company.service';
 
 @Controller('v1/auth')
 @UseFilters(AllExceptionsFilter)
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly companyService: CompanyService
   ) {}
 
   @Post('users/signin')
@@ -51,7 +54,9 @@ export class AuthController {
 
   @Post('users/signup')
   async createUser(@Body(ValidationPipe) createAuthUserDto: CreateAuthUserDto) {
-    const authResponse = await this.authService.createAuth(createAuthUserDto);
+    const authResponse = await this.authService.createUserAuth(
+      createAuthUserDto
+    );
     if (authResponse.status !== HttpStatus.CREATED) {
       throw new BadRequestException(authResponse.message);
     }
@@ -99,28 +104,23 @@ export class AuthController {
 
   @Post('company/signup')
   async createCompany(
-    @Body(ValidationPipe) createAuthUserDto: CreateAuthUserDto
+    @Body(ValidationPipe) createAuthCompanyDto: CreateCompanyDto
   ) {
-    const authResponse = await this.authService.createAuth(createAuthUserDto);
+    const authResponse = await this.authService.createCompanyAuth(
+      createAuthCompanyDto
+    );
     if (authResponse.status !== HttpStatus.CREATED) {
       throw new BadRequestException(authResponse.message);
     }
     const { data } = authResponse;
-    const signupUserDto = new SignupUserDto(
-      createAuthUserDto.email,
-      createAuthUserDto.firstName,
-      createAuthUserDto.lastName,
-      createAuthUserDto.phoneNumber,
-      createAuthUserDto.role,
-      data.accessToken,
-      data.auth.id
-    );
+    const company = createAuthCompanyDto;
+    company.authId = data.auth.id;
 
-    const userResponse = await this.userService.createUser(signupUserDto);
-    if (userResponse.status !== HttpStatus.CREATED) {
+    const companyResponse = await this.companyService.createCompany(company);
+    if (companyResponse.status !== HttpStatus.CREATED) {
       throw new BadRequestException(authResponse.message);
     }
 
-    return signupUserDto;
+    return company;
   }
 }

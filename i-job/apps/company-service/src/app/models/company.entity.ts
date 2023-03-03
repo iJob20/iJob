@@ -7,11 +7,12 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Recruiter } from './recruiter.entity';
+import { Recruiters } from './recruiter.entity';
 @Entity()
-export class Company extends BaseEntity {
+export class Companies extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
   @Column()
   employees: number;
 
@@ -36,6 +37,9 @@ export class Company extends BaseEntity {
   @Column()
   linkedin: string;
 
+  @Column()
+  authId: string;
+
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
@@ -49,6 +53,6 @@ export class Company extends BaseEntity {
   })
   updatedAt: Date;
 
-  @OneToMany((type) => Recruiter, (recruiter: Recruiter) => recruiter.company)
-  recruiters: Recruiter[];
+  @OneToMany((type) => Recruiters, (recruiter: Recruiters) => recruiter.company)
+  recruiters: Recruiters[];
 }

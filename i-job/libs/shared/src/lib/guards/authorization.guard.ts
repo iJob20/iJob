@@ -23,7 +23,7 @@ export class AuthorizationGuard implements CanActivate {
       return true;
     }
     const request = context.switchToHttp().getRequest();
-    // console.log(request.query.authorization);
+    // request.query.authorization);
     const token =
       request.query.authorization ||
       request.body.authorization ||

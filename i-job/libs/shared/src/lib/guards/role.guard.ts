@@ -18,12 +18,10 @@ export class RolesGuard implements CanActivate {
       return true;
     }
     const request = context.switchToHttp().getRequest();
-    // console.log(request.query.authorization);
     const token =
       request.query.authorization ||
       request.body.authorization ||
       request.params.authorization;
-    console.log(token);
     const data: any = await Jwt.verifyToken(token);
     return data.role === Role.Admin;
   }

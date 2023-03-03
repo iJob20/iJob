@@ -1,8 +1,12 @@
 /* eslint-disable no-useless-catch */
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreateAuthUserDto, LoginAuthUserDto } from '@i-job/shared/dto';
-import { firstValueFrom } from 'rxjs';
+import {
+  CreateAuthUserDto,
+  CreateCompanyDto,
+  LoginAuthUserDto,
+} from '@i-job/shared/dto';
+import { first, firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -20,10 +24,20 @@ export class AuthService {
     }
   }
 
-  async createAuth(createUserAuthDto: CreateAuthUserDto) {
+  async createUserAuth(createUserAuthDto: CreateAuthUserDto) {
     try {
       return await firstValueFrom(
-        this.authClient.send('create-auth', createUserAuthDto)
+        this.authClient.send('create-user-auth', createUserAuthDto)
+      );
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async createCompanyAuth(createCompanyDto: CreateCompanyDto) {
+    try {
+      return await firstValueFrom(
+        this.authClient.send('create-company-auth', createCompanyDto)
       );
     } catch (err) {
       throw err;

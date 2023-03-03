@@ -1,6 +1,6 @@
+import { CreateCompanyDto } from '@i-job/shared/dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreateAuthUserDto } from '@i-job/shared/dto';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
@@ -9,13 +9,13 @@ export class CompanyService {
     @Inject('COMPANY_MICROSERVICE') private readonly companyClient: ClientProxy
   ) {}
 
-  async createUser(createUserDto) {
+  async createCompany(createCompanyDto: CreateCompanyDto) {
     return await firstValueFrom(
-      this.companyClient.send('create-user', createUserDto)
+      this.companyClient.send('create-company', createCompanyDto)
     );
   }
 
-  async getUserByEmail(email: string) {
-    return await firstValueFrom(this.companyClient.send('get-user', email));
+  async getCompanyByEmail(email: string) {
+    return await firstValueFrom(this.companyClient.send('get-company', email));
   }
 }

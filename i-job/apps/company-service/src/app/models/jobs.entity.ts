@@ -7,8 +7,8 @@ import {
   JoinColumn,
   BaseEntity,
 } from 'typeorm';
-import { Company } from './company.entity';
-import { Recruiter } from './recruiter.entity';
+import { Companies } from './company.entity';
+import { Recruiters } from './recruiter.entity';
 @Entity()
 export class Jobs extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -32,11 +32,11 @@ export class Jobs extends BaseEntity {
   @Column()
   recruiter_id: string;
 
-  @ManyToOne((type) => Company, (company) => company.recruiters)
+  @ManyToOne((type) => Companies, (company) => company.recruiters)
   @JoinColumn({ name: 'company_id' })
-  company: Company;
+  company: Companies;
 
-  @ManyToOne((type) => Recruiter, (recruiter) => recruiter.company)
+  @ManyToOne((type) => Recruiters, (recruiter) => recruiter.company)
   @JoinColumn({ name: 'recruiter_id' })
-  recruiter: Recruiter;
+  recruiter: Recruiters;
 }
