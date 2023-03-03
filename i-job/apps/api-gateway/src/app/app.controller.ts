@@ -1,10 +1,10 @@
 import { Jwt } from '@i-job/shared/auth';
 import { Role } from '@i-job/shared/enums';
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { Roles } from '@i-job/shared/decorators';
 
 import { AppService } from './app.service';
-import { RolesGuard } from '@i-job/shared/guards';
+import { AuthorizationGuard, RolesGuard } from '@i-job/shared/guards';
 
 @Controller()
 export class AppController {
@@ -13,7 +13,7 @@ export class AppController {
   @Get('test')
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
-  getData(@Query() query) {
-    return Jwt.verifyToken(query.authorization);
+  getData(@Query() query, @Req() req) {
+    return console.log(req.userEmail);
   }
 }
