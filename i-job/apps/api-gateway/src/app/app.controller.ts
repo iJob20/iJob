@@ -1,5 +1,7 @@
 import { Jwt } from '@i-job/shared/auth';
+import { Role } from '@i-job/shared/enums';
 import { Controller, Get, Query } from '@nestjs/common';
+import { Roles } from '@i-job/shared/decorators';
 
 import { AppService } from './app.service';
 
@@ -8,7 +10,9 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('test')
-  getData(@Query() token: string) {
-    return Jwt.verifyToken(token);
+  @Roles(Role.Admin)
+  getData(@Query() query) {
+    console.log(query.token);
+    return Jwt.verifyToken(query.token);
   }
 }

@@ -24,7 +24,7 @@ export class AppService {
     signinUserDto: LoginAuthUserDto
   ): Promise<BaseResponse<SigninAuthResponse>> {
     const auth = await this.authRepository.findByEmail(signinUserDto.email);
-    if (!auth || auth.role !== signinUserDto.role) {
+    if (!auth) {
       return new ErrorResponse(
         HttpStatus.BAD_REQUEST,
         'Email or password is incorrect',
