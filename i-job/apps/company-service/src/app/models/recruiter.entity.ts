@@ -7,7 +7,7 @@ import {
   JoinColumn,
   BaseEntity,
 } from 'typeorm';
-import { Companies } from './company.entity';
+import { Companies } from './companies.entity';
 
 @Entity()
 export class Recruiters extends BaseEntity {

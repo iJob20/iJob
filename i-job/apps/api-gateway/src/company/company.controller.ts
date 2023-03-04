@@ -1,4 +1,4 @@
-import { Controller, UseFilters } from '@nestjs/common';
+import { Controller, Post, UseFilters } from '@nestjs/common';
 import { AllExceptionsFilter } from '@i-job/shared/filters';
 import { CompanyService } from './company.service';
 

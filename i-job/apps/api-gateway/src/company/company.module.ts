@@ -11,7 +11,7 @@ import { CompanyService } from './company.service';
         name: 'COMPANY_MICROSERVICE',
         options: {
           host: '0.0.0.0',
-          port: process.env.COMPANY_SERVICE_PORT || 3335,
+          port: process.env.COMPANIES_SERVICE_PORT || 3335,
         },
       },
     ]),

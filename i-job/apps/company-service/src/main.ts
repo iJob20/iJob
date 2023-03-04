@@ -14,7 +14,7 @@ import {
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
-  const port = process.env.COMPANY_SERVICE_PORT || 3335;
+  const port = process.env.COMPANIES_SERVICE_PORT || 3335;
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {

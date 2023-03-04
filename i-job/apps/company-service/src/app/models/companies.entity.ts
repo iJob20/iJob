@@ -10,7 +10,7 @@ import {
 import { Recruiters } from './recruiter.entity';
 @Entity()
 export class Companies extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()

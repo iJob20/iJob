@@ -4,7 +4,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import {
   CreateAuthUserDto,
   CreateCompanyDto,
-  LoginAuthUserDto,
+  LoginAuthDto,
 } from '@i-job/shared/dto';
 import { first, firstValueFrom } from 'rxjs';
 
@@ -14,7 +14,7 @@ export class AuthService {
     @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientProxy
   ) {}
 
-  async signinUser(signinUserDto: LoginAuthUserDto) {
+  async signinUser(signinUserDto: LoginAuthDto) {
     try {
       return await firstValueFrom(
         this.authClient.send('login-auth', signinUserDto)

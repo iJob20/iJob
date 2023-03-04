@@ -1,7 +1,7 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCompanyDto } from '@i-job/shared/dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CompanyRepository } from '../models/repo/company.repository';
+import { CompanyRepository } from '../models/repo/companies.repository';
 import {
   ErrorResponse,
   SuccessResponse,
@@ -14,6 +14,14 @@ export class AppService {
     @InjectRepository(CompanyRepository)
     private companyRepository: CompanyRepository
   ) {}
+
+  async getCompanyByEmail(email: string) {
+    const company = await this.companyRepository.findByEmail(email);
+    if (!company) {
+      throw new BadRequestException('Unable to find company');
+    }
+    return new SuccessResponse(company, HttpStatus.OK);
+  }
 
   async createCompany(createCompanyDto: CreateCompanyDto) {
     const createdCompany = await this.companyRepository.createCompanyEntity(

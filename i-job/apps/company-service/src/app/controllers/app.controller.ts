@@ -11,4 +11,9 @@ export class AppController {
   async createCompany(createCompanyDto: CreateCompanyDto) {
     return await this.appService.createCompany(createCompanyDto);
   }
+
+  @MessagePattern('get-company')
+  async getCompanyByEmail(email: string) {
+    return await this.appService.getCompanyByEmail(email);
+  }
 }

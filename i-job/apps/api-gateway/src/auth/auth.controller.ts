@@ -11,7 +11,8 @@ import {
 import {
   CreateAuthUserDto,
   CreateCompanyDto,
-  LoginAuthUserDto,
+  LoginAuthDto,
+  SigninCompanyDto,
   SigninUserDto,
 } from '@i-job/shared/dto';
 import { AllExceptionsFilter } from '@i-job/shared/filters';
@@ -31,22 +32,22 @@ export class AuthController {
 
   @Post('users/signin')
   @HttpCode(HttpStatus.OK)
-  async signinUser(@Body(ValidationPipe) signinUserDto: LoginAuthUserDto) {
+  async signinUser(@Body(ValidationPipe) signinUserDto: LoginAuthDto) {
     const authResponse = await this.authService.signinUser(signinUserDto);
     if (authResponse.status !== HttpStatus.OK) {
-      // throw error based on response from microservice
+      throw new BadRequestException('Unable to login user');
     }
     const userResponse = await this.userService.getUserByEmail(
       signinUserDto.email
     );
     if (userResponse.status !== HttpStatus.OK) {
-      // throw error based on response from microservice
+      throw new BadRequestException('Unable to login user');
     }
     return new SigninUserDto(
-      userResponse.email,
-      userResponse.firstName,
-      userResponse.lastName,
-      userResponse.phoneNumber,
+      userResponse.data.email,
+      userResponse.data.firstName,
+      userResponse.data.lastName,
+      userResponse.data.phoneNumber,
       authResponse.data.auth.role,
       authResponse.data.accessToken
     );
@@ -81,22 +82,28 @@ export class AuthController {
 
   @Post('company/signin')
   @HttpCode(HttpStatus.OK)
-  async signinCompany(@Body(ValidationPipe) signinUserDto: LoginAuthUserDto) {
-    const authResponse = await this.authService.signinUser(signinUserDto);
+  async signinCompany(@Body(ValidationPipe) signinDto: LoginAuthDto) {
+    const authResponse = await this.authService.signinUser(signinDto);
     if (authResponse.status !== HttpStatus.OK) {
-      // throw error based on response from microservice
+      throw new BadRequestException('Unable to login company');
     }
-    const userResponse = await this.userService.getUserByEmail(
-      signinUserDto.email
+    const companyResponse = await this.companyService.getCompanyByEmail(
+      signinDto.email
     );
-    if (userResponse.status !== HttpStatus.OK) {
-      // throw error based on response from microservice
+    console.log('companyResponse: ', companyResponse);
+
+    if (companyResponse.status !== HttpStatus.OK) {
+      throw new BadRequestException('Unable to login company');
     }
-    return new SigninUserDto(
-      userResponse.email,
-      userResponse.firstName,
-      userResponse.lastName,
-      userResponse.phoneNumber,
+    return new SigninCompanyDto(
+      companyResponse.data.email,
+      companyResponse.data.name,
+      companyResponse.data.industry,
+      companyResponse.data.employees,
+      companyResponse.data.address,
+      companyResponse.data.phoneNumber,
+      companyResponse.data.website,
+      companyResponse.data.linkedin,
       authResponse.data.auth.role,
       authResponse.data.accessToken
     );

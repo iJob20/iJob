@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Companies } from '../company.entity';
+import { Companies } from '../companies.entity';
 import { CreateCompanyDto } from '@i-job/shared/dto';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -9,6 +9,12 @@ export class CompanyRepository extends Repository<Companies> {
   constructor(@InjectRepository(Companies) repository: Repository<Companies>) {
     super(repository.target, repository.manager, repository.queryRunner);
   }
+
+  async findByEmail(email: string): Promise<Companies> {
+    const company = await this.findOne({ where: { email } });
+    return company;
+  }
+
   async createCompanyEntity(
     createCompanyDto: CreateCompanyDto
   ): Promise<Companies> {

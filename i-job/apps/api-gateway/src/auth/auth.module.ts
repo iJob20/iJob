@@ -17,17 +17,17 @@ import { AuthService } from './auth.service';
         },
       },
       {
-        name: 'USER_MICROSERVICE',
+        name: 'USERS_MICROSERVICE',
         options: {
           host: '0.0.0.0',
-          port: process.env.USER_SERVICE_PORT || 3336,
+          port: process.env.USERS_SERVICE_PORT || 3336,
         },
       },
       {
         name: 'COMPANY_MICROSERVICE',
         options: {
           host: '0.0.0.0',
-          port: process.env.COMPANY_SERVICE_PORT || 3335,
+          port: process.env.COMPANIES_SERVICE_PORT || 3335,
         },
       },
     ]),

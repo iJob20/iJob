@@ -3,10 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 import { AppController } from './controllers/app.controller';
-import { Companies } from './models/company.entity';
+import { Companies } from './models/companies.entity';
 import { Jobs } from './models/jobs.entity';
 import { Recruiters } from './models/recruiter.entity';
-import { CompanyRepository } from './models/repo/company.repository';
+import { CompanyRepository } from './models/repo/companies.repository';
 import { AppService } from './services/app.service';
 
 @Module({

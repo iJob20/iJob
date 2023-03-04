@@ -1,6 +1,5 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Role } from '../enums';
-export class LoginAuthUserDto {
+import { IsNotEmpty, IsString } from 'class-validator';
+export class LoginAuthDto {
   @IsString()
   @IsNotEmpty()
   email: string;
