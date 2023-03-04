@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
 
-import { CompanyController } from './company.controller';
-import { CompanyService } from './company.service';
+import { CompaniesController } from './companies.controller';
+import { CompaniesService } from './companies.service';
 
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name: 'COMPANY_MICROSERVICE',
+        name: 'COMPANIES_MICROSERVICE',
         options: {
           host: '0.0.0.0',
           port: process.env.COMPANIES_SERVICE_PORT || 3335,
@@ -16,7 +16,7 @@ import { CompanyService } from './company.service';
       },
     ]),
   ],
-  controllers: [CompanyController],
-  providers: [CompanyService],
+  controllers: [CompaniesController],
+  providers: [CompaniesService],
 })
-export class AuthModule {}
+export class CompaniesModule {}

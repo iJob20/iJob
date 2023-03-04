@@ -4,9 +4,10 @@ import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
-export class CompanyService {
+export class CompaniesService {
   constructor(
-    @Inject('COMPANY_MICROSERVICE') private readonly companyClient: ClientProxy
+    @Inject('COMPANIES_MICROSERVICE')
+    private readonly companyClient: ClientProxy
   ) {}
 
   async createCompany(createCompanyDto: CreateCompanyDto) {

@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Role } from '../enums';
+import { Role } from '../../enums';
 export class CreateCompanyDto {
   public _authId;
 
