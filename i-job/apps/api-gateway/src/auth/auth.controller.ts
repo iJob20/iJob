@@ -19,7 +19,7 @@ import { AllExceptionsFilter } from '@i-job/shared/filters';
 import { AuthService } from './auth.service';
 import { UserService } from '../users/user.service';
 import { SignupUserDto } from '@i-job/shared/dto';
-import { CompanyService } from '../company/company.service';
+import { CompaniesService } from '../companies/companies.service';
 
 @Controller('v1/auth')
 @UseFilters(AllExceptionsFilter)
@@ -27,7 +27,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
-    private readonly companyService: CompanyService
+    private readonly companyService: CompaniesService
   ) {}
 
   @Post('users/signin')
@@ -54,6 +54,7 @@ export class AuthController {
   }
 
   @Post('users/signup')
+  @HttpCode(HttpStatus.CREATED)
   async createUser(@Body(ValidationPipe) createAuthUserDto: CreateAuthUserDto) {
     const authResponse = await this.authService.createUserAuth(
       createAuthUserDto
@@ -110,6 +111,7 @@ export class AuthController {
   }
 
   @Post('company/signup')
+  @HttpCode(HttpStatus.CREATED)
   async createCompany(
     @Body(ValidationPipe) createAuthCompanyDto: CreateCompanyDto
   ) {

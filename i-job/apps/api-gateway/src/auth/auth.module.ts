@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { CompanyService } from '../company/company.service';
+import { CompaniesService } from '../companies/companies.service';
 import { UserService } from '../users/user.service';
 
 import { AuthController } from './auth.controller';
@@ -24,7 +24,7 @@ import { AuthService } from './auth.service';
         },
       },
       {
-        name: 'COMPANY_MICROSERVICE',
+        name: 'COMPANIES_MICROSERVICE',
         options: {
           host: '0.0.0.0',
           port: process.env.COMPANIES_SERVICE_PORT || 3335,
@@ -33,6 +33,6 @@ import { AuthService } from './auth.service';
     ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UserService, CompanyService],
+  providers: [AuthService, UserService, CompaniesService],
 })
 export class AuthModule {}

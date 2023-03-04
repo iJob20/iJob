@@ -5,7 +5,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { JwtPayload } from 'jsonwebtoken';
 import { Jwt } from '../auth';
 import { ROLES_KEY } from '../decorators/roles.decorator';
 import { Role } from '../enums';
@@ -32,9 +31,8 @@ export class AuthorizationGuard implements CanActivate {
       throw new UnauthorizedException();
     }
     const data: any = await Jwt.verifyToken(token);
-
-    request.userEmail = data.email;
-    request.userRole = data.role;
+    request.email = data.email;
+    request.role = data.role;
     return true;
   }
 }
