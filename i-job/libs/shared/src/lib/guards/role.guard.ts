@@ -23,6 +23,8 @@ export class RolesGuard implements CanActivate {
       request.body.authorization ||
       request.params.authorization;
     const data: any = await Jwt.verifyToken(token);
-    return data.role === Role.Admin;
+    request.email = data.email;
+    request.role = data.role;
+    return requiredRoles.some((role) => data.role?.includes(role));
   }
 }
