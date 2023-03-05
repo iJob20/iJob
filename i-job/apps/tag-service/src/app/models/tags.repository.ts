@@ -1,4 +1,4 @@
-import { CreateTagDto, UpdateTagDto } from '@i-job/shared/dto';
+import { CreateTagDto, DeleteTagDto, UpdateTagDto } from '@i-job/shared/dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -20,17 +20,16 @@ export class TagRepository extends Repository<Tag> {
     return await this.save(tag);
   }
 
-  async deleteTag(title: string): Promise<string> {
-    this.delete(title);
+  async deleteTag(deleteTagDto: DeleteTagDto): Promise<string> {
+    this.delete({ title: deleteTagDto.title });
 
-    return await "Deleted successfully"
+    return await 'Deleted successfully';
   }
 
-  async updateTag(updateTagDto: UpdateTagDto): Promise<void>{
+  async updateTag(updateTagDto: UpdateTagDto): Promise<void> {
     this.update(
       { title: updateTagDto.tag_title_to_update },
       { title: updateTagDto.new_title, updatedAt: new Date() }
     );
-
   }
 }

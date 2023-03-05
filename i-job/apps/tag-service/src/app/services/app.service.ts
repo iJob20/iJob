@@ -1,10 +1,8 @@
 import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 import { TagRepository } from '../models/tags.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateTagDto, UpdateTagDto } from '@i-job/shared/dto';
+import { CreateTagDto, DeleteTagDto, UpdateTagDto } from '@i-job/shared/dto';
 import {
-  BaseResponse,
-  ErrorResponse,
   SuccessResponse,
 } from 'libs/shared/src/lib/api/responses';
 import { CreateTagResponse } from '../interfaces/dto/create-tag.response';
@@ -26,12 +24,13 @@ export class AppService {
     );
   }
 
-  async deleteTag(title: string) {
-    const tag = this.tagRepository.deleteTag(title);
-    if (!tag) {
+  async deleteTag(deleteTagDto: DeleteTagDto) {
+    console.log(deleteTagDto);
+    const deletedTag = await this.tagRepository.deleteTag(deleteTagDto);
+    if (deletedTag !== 'Deleted successfully') {
       throw new BadRequestException();
     }
-    return tag;
+    return deletedTag;
   }
 
   async updateTag(updateTagDto: UpdateTagDto) {

@@ -5,3 +5,4 @@ export * from './login-auth.dto';
 export * from './signin-user.dto';
 export * from './create-tag.dto';
 export * from './update-tag.dto';
+export * from './delete-tag.dto';

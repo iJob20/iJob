@@ -2,7 +2,7 @@ import { Controller, UseFilters } from '@nestjs/common';
 import { AllExceptionsFilter } from '@i-job/shared/filters';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { AppService } from '../services/app.service';
-import { CreateTagDto, UpdateTagDto } from '@i-job/shared/dto';
+import { CreateTagDto, DeleteTagDto, UpdateTagDto } from '@i-job/shared/dto';
 
 @Controller()
 @UseFilters(AllExceptionsFilter)
@@ -11,7 +11,6 @@ export class AppController {
 
   @MessagePattern('create-tag')
   async createTag(@Payload() createTagDto: CreateTagDto) {
-    console.log('app_ms');
     return await this.appService.createTag(createTagDto);
   }
 
@@ -21,7 +20,7 @@ export class AppController {
   }
 
   @MessagePattern('delete-tag')
-  async deleteTag(@Payload() title: string) {
-    return await this.appService.deleteTag(title);
+  async deleteTag(@Payload() deleteTagDto: DeleteTagDto) {
+    return await this.appService.deleteTag(deleteTagDto);
   }
 }
