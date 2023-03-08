@@ -1,12 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreateAuthUserDto } from '@i-job/shared/dto';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class UserService {
   constructor(
-    @Inject('USER_MICROSERVICE') private readonly userClient: ClientProxy
+    @Inject('USERS_MICROSERVICE') private readonly userClient: ClientProxy
   ) {}
 
   async createUser(createUserDto) {

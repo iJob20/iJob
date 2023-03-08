@@ -20,7 +20,7 @@ export class AppService {
     if (!user) {
       throw new BadRequestException();
     }
-    return user;
+    return new SuccessResponse(user, HttpStatus.OK);
   }
 
   async createUser(

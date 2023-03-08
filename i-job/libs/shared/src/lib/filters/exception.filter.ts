@@ -25,13 +25,14 @@ export class AllExceptionsFilter implements ExceptionFilter {
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
     const path = httpAdapter?.getRequestUrl(ctx.getRequest()) || null;
+    const errorMessage =
+      exception?.message ||
+      exception.response?.message[0] ||
+      'Internal server error';
 
-    console.log('exception: ', exception.message);
     const response = new ErrorResponse(
       httpStatus,
-      exception?.message ||
-        exception.response?.message[0] ||
-        'Internal server error2',
+      errorMessage,
       new Date().toISOString(),
       path
     );

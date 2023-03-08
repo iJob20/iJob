@@ -1,4 +1,8 @@
-import { CreateAuthUserDto, LoginAuthUserDto } from '@i-job/shared/dto';
+import {
+  CreateAuthUserDto,
+  CreateCompanyDto,
+  LoginAuthUserDto,
+} from '@i-job/shared/dto';
 import {
   HttpStatus,
   Injectable,
@@ -14,6 +18,7 @@ import { SuccessResponse } from 'libs/shared/src/lib/api/responses/success.respo
 import { BaseResponse } from 'libs/shared/src/lib/api/responses/base.response';
 import { ErrorResponse } from 'libs/shared/src/lib/api/responses/error.response';
 
+export type AuthEntity = CreateAuthUserDto | CreateCompanyDto;
 @Injectable()
 export class AppService {
   constructor(
@@ -24,7 +29,7 @@ export class AppService {
     signinUserDto: LoginAuthUserDto
   ): Promise<BaseResponse<SigninAuthResponse>> {
     const auth = await this.authRepository.findByEmail(signinUserDto.email);
-    if (!auth || auth.type !== signinUserDto.type) {
+    if (!auth) {
       return new ErrorResponse(
         HttpStatus.BAD_REQUEST,
         'Email or password is incorrect',
@@ -42,15 +47,15 @@ export class AppService {
         new Date().toISOString()
       );
     }
-    const accessToken = await Jwt.signToken(auth.email);
+    const accessToken = await Jwt.signToken(auth.email, auth.role);
     return new SuccessResponse(
       new SigninAuthResponse(auth, accessToken),
       HttpStatus.OK
     );
   }
 
-  async save(
-    createAuthDto: CreateAuthUserDto
+  async createAuthEntity(
+    createAuthDto: AuthEntity
   ): Promise<BaseResponse<CreateAuthResponse>> {
     const isUserExist = await this.authRepository.findByEmail(
       createAuthDto.email
@@ -58,7 +63,7 @@ export class AppService {
     if (isUserExist) {
       return new ErrorResponse(
         HttpStatus.BAD_REQUEST,
-        'User already exist',
+        `${createAuthDto.role} already exist`,
         new Date().toISOString()
       );
     }
@@ -68,11 +73,14 @@ export class AppService {
     if (!authed) {
       return new ErrorResponse(
         HttpStatus.BAD_REQUEST,
-        'Unable to register user',
+        `Unable to register ${createAuthDto.role}`,
         new Date().toISOString()
       );
     }
-    const accessToken = await Jwt.signToken(createAuthDto.email);
+    const accessToken = await Jwt.signToken(
+      createAuthDto.email,
+      createAuthDto.role
+    );
     return new SuccessResponse(
       new CreateAuthResponse(authed, accessToken),
       HttpStatus.CREATED

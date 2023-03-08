@@ -4,7 +4,7 @@ export class SigninUserDto {
     public firstName: string,
     public lastName: string,
     public phoneNumber: string,
-    public type: string,
+    public role: string,
     public accessToken: string
   ) {}
 }

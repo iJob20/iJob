@@ -1,5 +1,8 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { Role } from '../../enums';
 export class CreateCompanyDto {
+  public _authId;
+
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -21,6 +24,10 @@ export class CreateCompanyDto {
   email: string;
 
   @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @IsString()
   website: string;
 
   @IsString()
@@ -28,4 +35,16 @@ export class CreateCompanyDto {
 
   @IsNumber()
   employees: number;
+
+  @IsString()
+  @IsNotEmpty()
+  role: Role;
+
+  set authId(id: string) {
+    this._authId = id;
+  }
+
+  set hashedPassword(hashedPassword: string) {
+    this.password = hashedPassword;
+  }
 }

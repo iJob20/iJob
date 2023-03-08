@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { UserType } from '../types';
+import { IsNotEmpty, IsString } from 'class-validator';
+import { Role } from '../../enums';
 export class CreateAuthUserDto {
   @IsString()
   @IsNotEmpty()
@@ -11,7 +11,7 @@ export class CreateAuthUserDto {
 
   @IsString()
   @IsNotEmpty()
-  type: UserType;
+  role: Role;
 
   @IsString()
   @IsNotEmpty()
