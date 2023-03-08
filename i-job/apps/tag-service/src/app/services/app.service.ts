@@ -25,19 +25,26 @@ export class AppService {
   }
 
   async deleteTag(deleteTagDto: DeleteTagDto) {
-    console.log(deleteTagDto);
     const deletedTag = await this.tagRepository.deleteTag(deleteTagDto);
-    if (deletedTag !== 'Deleted successfully') {
+    if (deletedTag.affected == 0) {
       throw new BadRequestException();
     }
     return deletedTag;
   }
 
-  async updateTag(updateTagDto: UpdateTagDto) {
-    const tag = this.tagRepository.updateTag(updateTagDto);
-    if (!tag) {
+  async getTags() {
+    const tags = await this.tagRepository.getTags();
+    if (!tags) {
       throw new BadRequestException();
     }
-    return tag;
+    return tags;
+  }
+
+  async updateTag(updateTagDto: UpdateTagDto) {
+    const updatedTag = await this.tagRepository.updateTag(updateTagDto);
+    if (updatedTag.affected == 0) {
+      throw new BadRequestException();
+    }
+    return updatedTag;
   }
 }

@@ -16,7 +16,13 @@ export class AppController {
 
   @MessagePattern('update-tag')
   async updateTag(@Payload() updateTagDto: UpdateTagDto) {
+    console.log(updateTagDto)
     return await this.appService.updateTag(updateTagDto);
+  }
+
+  @MessagePattern('get-tags')
+  async getTags() {
+    return await this.appService.getTags();
   }
 
   @MessagePattern('delete-tag')

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreateTagDto, DeleteTagDto } from '@i-job/shared/dto';
+import { CreateTagDto, DeleteTagDto, UpdateTagDto } from '@i-job/shared/dto';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
@@ -19,7 +19,11 @@ export class TagsService {
     return await this.tagsClient.send('delete-tag', deleteTagDto);
   }
 
-  async updateTag(tagTitle: string) {
-    return await firstValueFrom(this.tagsClient.send('update-tag', tagTitle));
+  async getTags() {
+    return await this.tagsClient.send('get-tags', 'get');
+  }
+  async updateTag(updateTagDto: UpdateTagDto) {
+    console.log(updateTagDto)
+    return await firstValueFrom(this.tagsClient.send('update-tag', updateTagDto));
   }
 }
