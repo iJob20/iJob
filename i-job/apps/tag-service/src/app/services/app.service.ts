@@ -29,7 +29,7 @@ export class AppService {
     if (deletedTag.affected == 0) {
       throw new BadRequestException();
     }
-    return deletedTag;
+    return new SuccessResponse(deleteTagDto.title,HttpStatus.OK)
   }
 
   async getTags() {
@@ -37,7 +37,7 @@ export class AppService {
     if (!tags) {
       throw new BadRequestException();
     }
-    return tags;
+    return new SuccessResponse(tags, HttpStatus.OK);
   }
 
   async updateTag(updateTagDto: UpdateTagDto) {
@@ -45,6 +45,6 @@ export class AppService {
     if (updatedTag.affected == 0) {
       throw new BadRequestException();
     }
-    return updatedTag;
+    return new SuccessResponse(updateTagDto.new_title, HttpStatus.OK);
   }
 }

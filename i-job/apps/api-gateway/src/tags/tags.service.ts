@@ -16,7 +16,7 @@ export class TagsService {
   }
 
   async deleteTag(deleteTagDto: DeleteTagDto) {
-    return await this.tagsClient.send('delete-tag', deleteTagDto);
+    return await firstValueFrom(this.tagsClient.send('delete-tag', deleteTagDto));
   }
 
   async getTags() {

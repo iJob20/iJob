@@ -9,6 +9,7 @@ import {
   Put,
   UseFilters,
   ValidationPipe,
+  BadRequestException,
 } from '@nestjs/common';
 import { AllExceptionsFilter } from '@i-job/shared/filters';
 import { TagsService } from './tags.service';
@@ -20,23 +21,33 @@ export class TagsController {
   constructor(private readonly tagsService: TagsService) {}
 
   @Post('')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   async createTag(@Body(ValidationPipe) createTagDto: CreateTagDto) {
-    const tag = await this.tagsService.createTag(createTagDto);
-    return tag;
+    const tagsResponse = await this.tagsService.createTag(createTagDto);
+    if (tagsResponse.status != HttpStatus.CREATED) {
+      throw new BadRequestException(tagsResponse.message)
+    }
+    return tagsResponse;
   }
 
   @Delete('')
   @HttpCode(HttpStatus.OK)
   async deleteTag(@Body(ValidationPipe) deleteTagDto: DeleteTagDto) {
-    return await this.tagsService.deleteTag(deleteTagDto);
+    const tagsResponse = await this.tagsService.deleteTag(deleteTagDto);
+    if (tagsResponse.status != HttpStatus.OK) {
+      throw new BadRequestException(tagsResponse.message)
+    }
+    return tagsResponse;
   }
 
   @Put('')
   @HttpCode(HttpStatus.OK)
   async updateTag(@Body(ValidationPipe) updateTagDto: UpdateTagDto) {
-    const tag = await this.tagsService.updateTag(updateTagDto);
-    return tag;
+    const tagsResponse = await this.tagsService.updateTag(updateTagDto);
+    if (tagsResponse.status != HttpStatus.OK) {
+      throw new BadRequestException(tagsResponse.message)
+    }
+    return tagsResponse;
   }
 
   @Get('')
