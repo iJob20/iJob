@@ -1,3 +1,7 @@
+export * from './create-tag.dto';
+export * from './update-tag.dto';
+export * from './delete-tag.dto';
+
 export * from './auth/login-auth.dto';
 export * from './auth/create-auth.dto';
 export * from './users/create-user.dto';
