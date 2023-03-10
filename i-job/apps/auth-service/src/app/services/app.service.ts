@@ -1,7 +1,7 @@
 import {
   CreateAuthUserDto,
   CreateCompanyDto,
-  LoginAuthUserDto,
+  LoginAuthDto,
 } from '@i-job/shared/dto';
 import {
   HttpStatus,
@@ -26,7 +26,7 @@ export class AppService {
   ) {}
 
   async signin(
-    signinUserDto: LoginAuthUserDto
+    signinUserDto: LoginAuthDto
   ): Promise<BaseResponse<SigninAuthResponse>> {
     const auth = await this.authRepository.findByEmail(signinUserDto.email);
     if (!auth) {
